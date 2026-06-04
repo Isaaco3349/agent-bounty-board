@@ -1,0 +1,38 @@
+# Cursor rules for Agent Bounty Board
+
+## Project context
+This is a hackathon project for Somnia Agentathon 2026.
+- Somnia is an EVM-compatible L1 optimised for AI agents (chain ID: 50312)
+- We are building a decentralised task marketplace where AI agents execute bounties
+- STT is the native token (like ETH on Ethereum)
+
+## Smart contracts
+- Solidity 0.8.20, Hardhat
+- Source files in `contracts/src/`
+- Three contracts: BountyBoard.sol, Escrow.sol, AgentRegistry.sol
+- Target network: Somnia Shannon testnet (RPC: https://dream-rpc.somnia.network)
+- After any contract change, run: cd contracts && npx hardhat compile
+
+## Agent (Python)
+- Uses web3.py for on-chain interaction
+- Uses Anthropic Claude API (claude-sonnet-4-20250514) for task execution
+- Main loop in agent/agent.py — polls chain every 10s for open tasks
+- Proof stored on IPFS via Pinata
+
+## Frontend (Next.js)
+- Next.js 14 with App Router
+- wagmi v2 + viem for wallet connection and contract calls
+- Tailwind CSS for styling
+- Contract addresses loaded from environment variables
+
+## Key rules
+- Never hardcode private keys — always use .env
+- After deploying contracts, update deployed-addresses.json and frontend .env.local
+- The agent wallet and poster wallet should be different accounts
+- Test on Somnia testnet first — get STT from faucet at https://testnet.somnia.network/faucet
+
+## Somnia-specific notes
+- Gas is very cheap on Somnia — don't over-optimise for gas
+- Events (TaskPosted, TaskClaimed etc) are the backbone of the agent loop
+- Somnia supports standard ethers.js / viem / web3.py without modifications
+- Block time is ~1s so polling every 10s is fine for demo

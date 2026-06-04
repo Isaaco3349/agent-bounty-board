@@ -1,0 +1,29 @@
+# Environment files - NEVER commit these
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+.next/
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# Hardhat
+contracts/artifacts/
+contracts/cache/
+contracts/typechain-types/
+
+# Deployed addresses (keep this, but don't commit private keys)
+# deployed-addresses.json  <- commit this after deploying
+
+# Misc
+.DS_Store
+*.log

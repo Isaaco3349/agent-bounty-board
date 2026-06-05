@@ -41,7 +41,7 @@ export default function Home() {
       await writeContractAsync({
         address: BOUNTY_BOARD_ADDRESS,
         abi: BOUNTY_BOARD_ABI,
-        functionName: 'createTask',
+        functionName: 'postTask',
         args: [title, description, category, BigInt(deadline)],
         value: parseEther(reward),
       })
@@ -146,13 +146,12 @@ function TaskCard({ taskId, onClaim, isConnected }: { taskId: number; onClaim: (
   const { data: task } = useReadContract({
     address: BOUNTY_BOARD_ADDRESS,
     abi: BOUNTY_BOARD_ABI,
-    functionName: 'tasks',
+    functionName: 'getTask',
     args: [BigInt(taskId)],
   })
-
   if (!task) return <div style={{ background: '#111', border: '1px solid #222', borderRadius: 12, padding: 20, color: '#555' }}>Loading task #{taskId}...</div>
 
-  const [id, poster, title, description, category, rewardWei, deadline, agent, statusNum] = task as any[]
+  const { id, poster, title, description, category, reward: rewardWei, deadline, status: statusNum, assignedAgent } = task as any
   const status = STATUS_LABELS[Number(statusNum)] || 'Unknown'
   const colors = STATUS_COLORS[status] || STATUS_COLORS.Open
   const deadlineDate = new Date(Number(deadline) * 1000).toLocaleDateString()

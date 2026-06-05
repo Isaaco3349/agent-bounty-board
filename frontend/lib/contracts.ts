@@ -4,13 +4,14 @@ export const AGENT_REGISTRY_ADDRESS = '0x8C8Aa3a4aD538985438EFDFaDccdac8beBE63fD
 
 export const BOUNTY_BOARD_ABI = [
   "function taskCount() view returns (uint256)",
-  "function tasks(uint256) view returns (uint256 id, address poster, string title, string description, string category, uint256 reward, uint256 deadline, address agent, uint8 status)",
-  "function createTask(string title, string description, string category, uint256 deadline) payable",
+  "function postTask(string title, string description, string category, uint256 deadline) payable returns (uint256)",
   "function claimTask(uint256 taskId)",
-  "function submitProof(uint256 taskId, string proof)",
-  "function approveCompletion(uint256 taskId)",
+  "function submitProof(uint256 taskId, string ipfsCid)",
+  "function approveTask(uint256 taskId)",
   "function cancelTask(uint256 taskId)",
-  "event TaskCreated(uint256 indexed taskId, address indexed poster, string title, uint256 reward)",
+  "function getTask(uint256 taskId) view returns (tuple(uint256 id, address poster, string title, string description, string category, uint256 reward, uint256 deadline, uint8 status, address assignedAgent, string proofCid))",
+  "function getOpenTasks() view returns (tuple(uint256 id, address poster, string title, string description, string category, uint256 reward, uint256 deadline, uint8 status, address assignedAgent, string proofCid)[])",
+  "event TaskPosted(uint256 indexed taskId, address indexed poster, string title, uint256 reward, uint256 deadline)",
   "event TaskClaimed(uint256 indexed taskId, address indexed agent)",
   "event TaskCompleted(uint256 indexed taskId, address indexed agent, uint256 reward)",
 ] as const

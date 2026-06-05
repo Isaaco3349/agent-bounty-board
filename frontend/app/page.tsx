@@ -164,7 +164,7 @@ function TaskCard({ taskId, onClaim, isConnected }: { taskId: number; onClaim: (
         <div style={{ color: '#555', fontSize: 12, marginTop: 2 }}>Posted by {poster?.slice(0,6)}...{poster?.slice(-4)}</div>
       </div>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <span style={{ color: '#7c3aed', fontWeight: 'bold' }}>{formatEther(rewardWei || 0n)} STT</span>
+        <span style={{ color: '#7c3aed', fontWeight: 'bold' }}>{formatEther(rewardWei || BigInt(0))} STT</span>
         <span style={{ background: colors.bg, color: colors.text, padding: '4px 12px', borderRadius: 20, fontSize: 12 }}>{status}</span>
         {status === 'Open' && isConnected && (
           <button onClick={() => onClaim(taskId)} style={{ background: '#7c3aed', color: 'white', border: 'none', padding: '6px 14px', borderRadius: 8, cursor: 'pointer', fontSize: 13 }}>

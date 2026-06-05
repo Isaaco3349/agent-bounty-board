@@ -90,8 +90,10 @@ export default function Home() {
       <div style={{ padding: '32px' }}>
         {tab === 'tasks' && (
           <div>
-            <h2 style={{ color: '#7c3aed', marginBottom: 8 }}>Open Tasks</h2>
-            <p style={{ color: '#555', fontSize: 13, marginBottom: 24 }}>{taskCount ? `${taskCount} tasks on-chain` : 'Loading...'}</p>
+            <h2 style={{ color: '#7c3aed', marginBottom: 8 }}>All Tasks</h2>
+            <p style={{ color: '#555', fontSize: 13, marginBottom: 24 }}>
+              {taskCount ? `${taskCount} tasks on-chain` : 'Loading...'}
+            </p>
             {taskIds.length === 0 && <p style={{ color: '#555' }}>No tasks yet. Be the first to post one!</p>}
             <div style={{ display: 'grid', gap: 16 }}>
               {taskIds.map(id => (
@@ -149,9 +151,10 @@ function TaskCard({ taskId, onClaim, isConnected }: { taskId: number; onClaim: (
     functionName: 'getTask',
     args: [BigInt(taskId)],
   })
+
   if (!task) return <div style={{ background: '#111', border: '1px solid #222', borderRadius: 12, padding: 20, color: '#555' }}>Loading task #{taskId}...</div>
 
-  const { id, poster, title, description, category, reward: rewardWei, deadline, status: statusNum, assignedAgent } = task as any
+  const { poster, title, category, reward: rewardWei, deadline, status: statusNum, proofCid } = task as any
   const status = STATUS_LABELS[Number(statusNum)] || 'Unknown'
   const colors = STATUS_COLORS[status] || STATUS_COLORS.Open
   const deadlineDate = new Date(Number(deadline) * 1000).toLocaleDateString()
@@ -162,6 +165,9 @@ function TaskCard({ taskId, onClaim, isConnected }: { taskId: number; onClaim: (
         <div style={{ fontWeight: 'bold', fontSize: 16 }}>{title}</div>
         <div style={{ color: '#888', fontSize: 13, marginTop: 4 }}>{category} · Deadline: {deadlineDate}</div>
         <div style={{ color: '#555', fontSize: 12, marginTop: 2 }}>Posted by {poster?.slice(0,6)}...{poster?.slice(-4)}</div>
+        {status === 'PendingReview' && (
+          <div style={{ color: '#fbbf24', fontSize: 11, marginTop: 4 }}>📄 {proofCid || 'proof submitted'}</div>
+        )}
       </div>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
         <span style={{ color: '#7c3aed', fontWeight: 'bold' }}>{formatEther(rewardWei || BigInt(0))} STT</span>

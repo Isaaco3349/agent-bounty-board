@@ -48,9 +48,8 @@ def run():
 
             for task in open_tasks:
                 task_id = task[0]
-                if task_id in processed:
+                if task_id in processed or task[7] != 0:
                     continue
-
                 title = task[2]
                 description = task[3]
                 reward_wei = task[5]

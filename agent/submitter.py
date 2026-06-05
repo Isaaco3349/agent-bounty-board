@@ -13,14 +13,14 @@ log = logging.getLogger(__name__)
 PINATA_JWT = os.getenv("PINATA_JWT")
 
 
-def build_and_send(w3: Web3, account, fn, gas=300_000):
+def build_and_send(w3: Web3, account, fn, gas=2_000_000):
     """Build, sign, and send a transaction. Returns receipt."""
-    nonce = w3.eth.get_transaction_count(account.address)
+    nonce = w3.eth.get_transaction_count(account.address, 'pending')
     tx = fn.build_transaction({
         "from": account.address,
         "nonce": nonce,
         "gas": gas,
-        "gasPrice": w3.eth.gas_price,
+        "gasPrice": w3.to_wei('6', 'gwei'),
     })
     signed = account.sign_transaction(tx)
     tx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)

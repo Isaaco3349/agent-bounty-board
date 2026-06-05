@@ -1,0 +1,14 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["node_modules", "lib"]
+remappings = [
+    "@openzeppelin/=node_modules/@openzeppelin/",
+    "hardhat/=node_modules/hardhat/",
+]
+
+[rpc_endpoints]
+somnia = "https://api.infra.testnet.somnia.network/"
+
+[etherscan]
+somnia = { key = "verifytoken", url = "https://shannon-explorer.somnia.network/api" }

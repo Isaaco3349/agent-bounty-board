@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 const TASKS = [
   { id: 1, title: 'Summarize Somnia Whitepaper', category: 'Research', reward: '10 STT', deadline: '2h left', status: 'Open' },
@@ -19,7 +20,7 @@ export default function Home() {
           <button onClick={() => setTab('post')} style={{ background: tab === 'post' ? '#7c3aed' : '#1a1a1a', color: 'white', border: 'none', padding: '8px 16px', borderRadius: 8, cursor: 'pointer' }}>Post Task</button>
           <button onClick={() => setTab('agent')} style={{ background: tab === 'agent' ? '#7c3aed' : '#1a1a1a', color: 'white', border: 'none', padding: '8px 16px', borderRadius: 8, cursor: 'pointer' }}>Agent Log</button>
         </div>
-        <button style={{ background: '#7c3aed', color: 'white', border: 'none', padding: '8px 20px', borderRadius: 8, cursor: 'pointer' }}>Connect Wallet</button>
+        <ConnectButton />
       </nav>
 
       <div style={{ padding: '32px' }}>

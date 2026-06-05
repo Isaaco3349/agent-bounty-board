@@ -44,7 +44,7 @@ export default function Home() {
         functionName: 'postTask',
         args: [title, description, category, BigInt(deadline)],
         value: parseEther(reward),
-      })
+      } as any)
       setTxStatus('Task posted! ✅')
       setTitle(''); setDescription(''); setCategory(''); setReward('')
     } catch (e: any) {
@@ -60,7 +60,7 @@ export default function Home() {
         abi: BOUNTY_BOARD_ABI,
         functionName: 'claimTask',
         args: [BigInt(taskId)],
-      })
+      } as any)
       setTxStatus('Task claimed! ✅')
     } catch (e: any) {
       setTxStatus('Error: ' + (e.shortMessage || e.message))

@@ -7,10 +7,10 @@ contract Deploy is Script {
     function run() external {
         vm.startBroadcast();
         BountyBoard board = new BountyBoard(
-            address(0xe184DBF4a1384F31c240Eb71d91B969496B17321),
-            address(0x296Da3211Ab363483a66eFD97e3B47264C91e7eD)
+            address(0x177eBC671562e6F3c2f8E2D16FD3AFAac9144C74),
+            address(0x8C8Aa3a4aD538985438EFDFaDccdac8beBE63fDb)
         );
-        Escrow escrow = Escrow(0xe184DBF4a1384F31c240Eb71d91B969496B17321);
+        Escrow escrow = Escrow(0x177eBC671562e6F3c2f8E2D16FD3AFAac9144C74);
         escrow.setBountyBoard(address(board));
         vm.stopBroadcast();
     }
